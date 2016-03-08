@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+shopt -s nullglob
+
+cheatsheet_name_from_path() {
+  local cheatsheet_filename="${1##*/}"
+  ret="${cheatsheet_filename%.*}"
+}
+
+main() {
+  local dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+  for cheatsheet in $dir/build/*; do
+    cheatsheet_name_from_path $cheatsheet
+    cheatsheet_name="$ret"
+    echo "Cleaning $cheatsheet_name"
+    rm -r $cheatsheet
+  done
+
+  cd $dir/build
+
+  for cheatsheet in $dir/source/*.rb; do
+    cheatsheet_name_from_path $cheatsheet
+    cheatsheet_name="$ret"
+    echo "Generate $cheatsheet_name"
+    cheatset generate $cheatsheet
+  done
+}
+
+main
