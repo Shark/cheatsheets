@@ -6,6 +6,20 @@ cheatsheet do
   introduction 'Vim commands that I find useful'
 
   category do
+    id 'General'
+
+    entry do
+      command 'C-w C-w'
+      name 'Switch active buffer'
+    end
+
+    entry do
+      command ':qa'
+      name 'Close all buffers and quit'
+    end
+  end
+
+  category do
     id 'vimdiff'
 
     entry do
